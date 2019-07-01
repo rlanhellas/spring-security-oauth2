@@ -1,0 +1,14 @@
+## Client Credentials
+1) Solicitar AccessToken: curl clientid:secret@localhost:8080/oauth/token -dgrant_type=client_credentials -dscope=read
+
+## Authorization Code
+1) Acessar via Navegador http://localhost:8080/oauth/authorize?grant_type=authorization_code&response_type=code&client_id=clientid&state=1234
+2) Copiar Code retornado
+3) Solicitar AcessToken: curl clientid:secret@localhost:8080/oauth/token -dgrant_type=authorization_code -dcode=ZiI2OK
+
+## Password
+1) Solicitar AccessToken: curl clientid:secret@localhost:8080/oauth/token -dgrant_type=password -dscope=transferir-valores -dusername=user -dpassword=pass
+
+
+
+

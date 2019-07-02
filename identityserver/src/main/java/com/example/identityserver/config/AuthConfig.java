@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -32,9 +33,23 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("clientid")
                 .secret(passwordEncoder().encode("secret"))
-                .authorizedGrantTypes("authorization_code", "client_credentials", "password")
-                .scopes("transferir-valores")
+                .authorizedGrantTypes("authorization_code", "client_credentials", "password", "implicit")
+                .scopes("transfer-money", "view-current-value")
                 .redirectUris("http://localhost:8080/oauth/login/client-app"); //Essencial quando usamos Authorization Code Flow
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        /*
+        * Permite o acesso ao endpoint oauth/check_token sem autenticação
+        * */
+        security.checkTokenAccess("permitAll()")
+
+                /*
+                 * Possibilita que as credenciais (clientid e secret) sejam passados no body da requisição
+                 * e não no header
+                 * */
+                .allowFormAuthenticationForClients();
     }
 
     /**

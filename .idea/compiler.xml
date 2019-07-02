@@ -8,15 +8,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="identityserver" />
         <module name="resourceserver" />
+        <module name="client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="client" target="1.8" />
       <module name="identityserver" target="1.8" />
       <module name="resourceserver" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="client" options="-parameters" />
       <module name="identityserver" options="-parameters" />
       <module name="resourceserver" options="-parameters" />
     </option>

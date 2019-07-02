@@ -13,6 +13,12 @@ public class AccountController {
         return "Congrats, you are in, with correct scopes";
     }
 
+    @GetMapping("/needscope_onlyviewcurrentvalue")
+    @PreAuthorize("#oauth2.hasScope('view-current-value')")
+    public String needscopeviewcurrentvalue() {
+        return "Congrats, you are in, with scope view-current-value";
+    }
+
     /**
     * Apenas para flows que possuem autenticação de usuário, neste caso a ROLE do usuário é inserida no token JWT
     * */

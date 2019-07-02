@@ -28,6 +28,9 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
     }
 
 
+    /**
+     * Cria a configurações de clientes que podem usar nossa aplicação, entenda por cliente como uma outra aplicação.
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
@@ -35,14 +38,21 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
                 .secret(passwordEncoder().encode("secret"))
                 .authorizedGrantTypes("authorization_code", "client_credentials", "password", "implicit")
                 .scopes("transfer-money", "view-current-value")
-                .redirectUris("http://localhost:8080/oauth/login/client-app"); //Essencial quando usamos Authorization Code Flow
+                .redirectUris("http://localhost:8080/oauth/login/client-app") //Essencial quando usamos Authorization Code Flow
+                .and()
+                .withClient("clientid2")
+                .secret(passwordEncoder().encode("secret2"))
+                .authorizedGrantTypes("authorization_code", "client_credentials", "password", "implicit")
+                .scopes("transfer-money")
+                .redirectUris("http://localhost:8080/oauth/login/client-app-2"); //Essencial quando usamos Authorization Code Flow
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         /*
-        * Permite o acesso ao endpoint oauth/check_token sem autenticação
-        * */
+         * Permite o acesso ao endpoint oauth/check_token sem autenticação
+         * oaut/check_token
+         * */
         security.checkTokenAccess("permitAll()")
 
                 /*

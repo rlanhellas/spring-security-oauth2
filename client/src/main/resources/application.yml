@@ -1,0 +1,13 @@
+security:
+  oauth2:
+    client:
+      client-id: clientid2
+      client-secret: secret2
+      access-token-uri: http://localhost:8080/oauth/token
+      user-authorization-uri: http://localhost:8080/oauth/authorize
+      authentication-scheme: form
+server:
+  port: 9091
+logging:
+  level:
+    org.apache.http: DEBUG
